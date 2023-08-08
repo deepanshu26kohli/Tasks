@@ -49,6 +49,9 @@
         .rotate{
             transform: rotate(180deg);
         }
+        .rotate-90{
+            transform: rotate(90deg);
+        }
         i{
             color:red;
         }
@@ -98,17 +101,28 @@
     <script>
         let foot = '<i class="fa-solid fa-shoe-prints fa-2x"></i>'
         let footRev = '<i class="rotate fa-solid fa-shoe-prints fa-2x"></i>'
+        let footRev90 = '<i class="rotate-90 fa-solid fa-shoe-prints fa-2x"></i>'
         let x = document.getElementsByClassName('sm-box');
-        console.log(x);
+        // console.log(x);
         steps = x.length;
-        console.log(steps)
+        // console.log(steps)
         document.getElementById('btn').addEventListener('click', ()=>{
-            let i = 0
-            let val = document.getElementById('inp').value;
+            console.log(getCookie("val"))
+            let p = 0
+            let i = (getCookie("val")==="")?'0':getCookie("val");
+            i = parseInt(i);
+            console.log(i);
+            // let val = document.getElementById('inp').value;
+            let val = (getCookie("val")==="")?parseInt(document.getElementById('inp').value):parseInt(document.getElementById('inp').value) + i;
+            
+            // document.cookie = `val = ${val}; expires=Thu, 10 Aug 2023 12:00:00 UTC`;
+           
             if (val < 0 || val > steps){
                 alert("Please enter Valid steps")
             }
+          
             else{
+
                 const handleSteps = setInterval(() => {
                     if(i>0){
                         x[i-1].innerHTML = ""
@@ -118,26 +132,46 @@
                         i = i + 1;
                      }
                      else if((i < val && i < 20 )){
-                        x[i].innerHTML = footRev
+                        if (i == 10){
+                            x[i].innerHTML = footRev90
+                            i = i + 1;
+                        }else{
+                       x[i].innerHTML = footRev
                         i = i + 1;
+                        }
+                       
                      }
                      else{
                         if(i < 11){
                             x[i-1].innerHTML = foot;
                             document.getElementById("mess").innerHTML = "Steps moved "+val;
-                            clearInterval(handleSteps);
+                
                         }
                         else{
                             x[i-1].innerHTML = footRev;
-                            document.getElementById("mess").innerHTML = "Steps moved "+val;
-                            clearInterval(handleSteps);
-                           
+                            document.getElementById("mess").innerHTML = "Steps moved "+val; 
                         }
+                        document.cookie = `val=${val};expires=Thu, 10 Aug 2023 12:00:00 UTC`
+                        clearInterval(handleSteps);
                      }     
                 },1000);
             }
         })
-
+        function getCookie(cname) {
+           let name = cname + "=";
+           let decodedCookie = decodeURIComponent(document.cookie);
+          let ca = decodedCookie.split(';');
+          for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+             while (c.charAt(0) == ' ') {
+           c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
     </script>
 </body>
 </html>

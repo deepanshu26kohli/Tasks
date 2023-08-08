@@ -6,16 +6,15 @@
     <title>Document</title>
     <style>
     #spriteContainer {
-  width: 300px;
-  height: 300px;
-  display: block;
+  width: 312px;
+  height: 312px;
   background-image: url("sprites_final.png");
   margin:auto;
-  animation: sprite .5s steps(24) infinite;
+  animation: sprite .5s steps(24) infinite alternate ;
 }
 @keyframes sprite {
      100% {
-       background-position: 7188px;
+       background-position: -7230px;
      }
     }
 </style>
