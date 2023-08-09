@@ -1,6 +1,6 @@
 <?php
   session_start();
- 
+  
 
   if(isset($_FILES['image'])){
     echo "<pre>";
@@ -15,7 +15,7 @@
     if($x){
         // $arr[] = $file_name;
        $_SESSION['filename'][] = $file_name;
-       header('Location: /Tasks/Tasks/fileTaskView.php');
+       header('Location: /LearnPHP/fileTaskView.php');
     }
   }
   
